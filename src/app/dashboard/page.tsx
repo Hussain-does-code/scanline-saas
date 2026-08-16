@@ -40,7 +40,7 @@ export default async function DashboardPage() {
       risk_scenario: "Anyone with your repo URL could use it right now to access your database.",
       fix_prompt: "Move the hardcoded database URL to an environment variable.",
       status: "new"
-    } as any,
+    } as Finding,
     {
       id: "f-2",
       category: "Missing Rate Limit",
@@ -51,7 +51,7 @@ export default async function DashboardPage() {
       risk_scenario: "A stranger could write a script to guess passwords endlessly until they get in.",
       fix_prompt: "Add a rate limit middleware to restrict requests to 5 per minute per IP.",
       status: "persisting"
-    } as any
+    } as Finding
   ];
 
   return (
