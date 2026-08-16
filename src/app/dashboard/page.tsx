@@ -52,6 +52,8 @@ export default async function DashboardPage() {
       status: "persisting"
     } as any
   ];
+
+  return (
     <div className="min-h-screen flex flex-col relative">
       <header className="border-b border-mist/10 bg-panel px-6 py-4 flex items-center justify-between relative z-10">
         <div className="flex items-center space-x-4">
@@ -65,7 +67,7 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <DashboardClient initialFindings={mockFindings} />
+      <DashboardClient initialFindings={displayFindings} />
     </div>
   )
 }
