@@ -64,7 +64,7 @@ export default async function DashboardPage() {
         </div>
         <div className="flex items-center space-x-4 pr-24">
           <a 
-            href="#" 
+            href="https://sanitanoli.gumroad.com/l/qioky" 
             target="_blank" 
             rel="noreferrer"
             className="flex items-center space-x-2 text-sm font-medium text-scanline hover:text-white transition-colors bg-scanline/10 hover:bg-scanline/20 px-3 py-1.5 rounded-md border border-scanline/20"
