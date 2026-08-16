@@ -27,7 +27,19 @@ export default async function DashboardPage() {
     }
   });
 
-  const dbFindings = user?.repos.flatMap(r => r.scans.flatMap(s => s.findings)) || [];
+  const rawDbFindings = user?.repos.flatMap(r => r.scans.flatMap(s => s.findings)) || [];
+
+  const dbFindings: Finding[] = rawDbFindings.map(f => ({
+    id: f.id,
+    category: f.category,
+    severity: f.severity as any,
+    file: f.file,
+    line: f.line,
+    plain_explanation: f.plainExplanation || "",
+    risk_scenario: f.riskScenario || "",
+    fix_prompt: f.fixPrompt || "",
+    status: f.status as any
+  }));
 
   const displayFindings = dbFindings.length > 0 ? dbFindings : [
     {
