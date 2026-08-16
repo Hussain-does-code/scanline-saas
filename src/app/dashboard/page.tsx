@@ -72,7 +72,12 @@ export default async function DashboardPage() {
         <div className="flex items-center space-x-4">
           <div className="font-sans font-bold text-lg text-scanline tracking-tight">Scanline</div>
           <div className="h-4 w-px bg-mist/20" />
-          <div className="text-sm font-medium text-fog">indie-builder / saas-mvp</div>
+          {session.user?.image && (
+            <img src={session.user.image} alt="Avatar" className="w-6 h-6 rounded-full border border-mist/20" />
+          )}
+          <div className="text-sm font-medium text-fog">
+            {session.user?.name || session.user?.email || 'Hacker'} / workspace
+          </div>
         </div>
         <div className="flex items-center space-x-4 pr-24">
           <a 
