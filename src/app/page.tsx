@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { SignIn } from "@/components/auth-components"
-
+import { Heart } from "lucide-react"
 export default async function LandingPage() {
   const session = await auth()
   
@@ -20,11 +20,23 @@ export default async function LandingPage() {
           Scanline continuously checks apps built with AI coding tools for the specific mistakes those tools tend to make, and explains every risk in plain English with a fix you can paste straight back into your coding agent.
         </p>
 
-        <div className="pt-8">
-          <SignIn className="h-14 px-8 text-lg bg-fog text-ink hover:bg-fog/90 shadow-lg transition-transform hover:scale-105" />
-          <p className="mt-4 text-sm text-mist/60">
-            Scanline can only read your code. It can never write to your repo.
-          </p>
+        <div className="pt-8 flex flex-col items-center space-y-6">
+          <div className="flex flex-col items-center space-y-4">
+            <SignIn className="h-14 px-8 text-lg bg-fog text-ink hover:bg-fog/90 shadow-lg transition-transform hover:scale-105" />
+            <p className="text-sm text-mist/60">
+              Scanline can only read your code. It can never write to your repo.
+            </p>
+          </div>
+          
+          <a 
+            href="https://sanitanoli.gumroad.com/l/qioky" 
+            target="_blank" 
+            rel="noreferrer"
+            className="inline-flex items-center space-x-2 text-sm font-medium text-scanline hover:text-white transition-colors bg-scanline/10 hover:bg-scanline/20 px-4 py-2 rounded-full border border-scanline/20"
+          >
+            <Heart className="w-4 h-4" />
+            <span>Support this project</span>
+          </a>
         </div>
       </div>
       
