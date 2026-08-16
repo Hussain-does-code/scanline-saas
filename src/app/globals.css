@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  /* Dark Mode Default */
+  --bg-base: #0B0D12; /* ink */
+  --bg-panel: #131720; /* panel */
+  --text-primary: #B8BFCC; /* fog */
+  --text-secondary: #6B7280; /* mist */
+  
+  --color-scanline: #5EEAD4;
+  --color-clear: #34D399;
+  --color-caution: #F5A623;
+  --color-alert: #F0576B;
+}
+
+.light {
+  /* Light Mode Inverted */
+  --bg-base: #F4F6FA;
+  --bg-panel: #FFFFFF;
+  --text-primary: #374151;
+  --text-secondary: #6B7280;
+}
+
+@theme {
+  --color-ink: var(--bg-base);
+  --color-panel: var(--bg-panel);
+  --color-fog: var(--text-primary);
+  --color-mist: var(--text-secondary);
+  --color-scanline: var(--color-scanline);
+  --color-clear: var(--color-clear);
+  --color-caution: var(--color-caution);
+  --color-alert: var(--color-alert);
+
+  --font-sans: var(--font-ibm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-ibm-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-fog);
+  font-family: var(--font-sans);
+  color-scheme: dark;
+}
+
+.light body {
+  color-scheme: light;
+}
