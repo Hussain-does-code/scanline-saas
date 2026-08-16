@@ -27,21 +27,26 @@ export default async function DashboardPage() {
     }
   });
 
-  const rawDbFindings = user?.repos.flatMap(r => r.scans.flatMap(s => s.findings)) || [];
-
-  const dbFindings: Finding[] = rawDbFindings.map(f => ({
-    id: f.id,
-    category: f.category,
-    severity: f.severity as Finding["severity"],
-    file: f.file,
-    line: f.line,
-    plain_explanation: f.plainExplanation || "",
-    risk_scenario: f.riskScenario || "",
-    fix_prompt: f.fixPrompt || "",
-    raw_output: f.rawOutput || "",
-    repoName: f.scan.repo.name,
-    status: f.status as Finding["status"]
-  }));
+  const dbFindings: Finding[] = [];
+  user?.repos.forEach(repo => {
+    repo.scans.forEach(scan => {
+      scan.findings.forEach(f => {
+        dbFindings.push({
+          id: f.id,
+          category: f.category,
+          severity: f.severity as Finding["severity"],
+          file: f.file,
+          line: f.line,
+          plain_explanation: f.plainExplanation || "",
+          risk_scenario: f.riskScenario || "",
+          fix_prompt: f.fixPrompt || "",
+          raw_output: f.rawOutput || "",
+          repoName: repo.name,
+          status: f.status as Finding["status"]
+        });
+      });
+    });
+  });
 
   // Removed mock data fallback; we now show Zero State in DashboardClient if dbFindings is empty
   const displayFindings = dbFindings;
