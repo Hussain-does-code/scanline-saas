@@ -5,8 +5,8 @@ import * as tar from "tar";
 import { tmpdir } from "os";
 import path from "path";
 import fs from "fs/promises";
-import { ScanService } from "@/lib/scanner";
-import { TranslatorService } from "@/lib/translator";
+import { runScan } from "@/lib/scanner";
+import { translateFinding } from "@/lib/translator";
 
 export async function POST(req: Request) {
   try {
@@ -58,13 +58,13 @@ export async function POST(req: Request) {
     const scanTargetDir = path.join(tmpDir, repoDirName || "");
 
     // 4. Run Scan
-    const rawFindings = await ScanService.runScan(scanTargetDir);
+    const rawFindings = await runScan(scanTargetDir);
     
     // 5. Translate Findings via Gemini
     const translatedFindings = [];
     for (const f of rawFindings) {
       try {
-        const translation = await TranslatorService.translateFinding(f);
+        const translation = await translateFinding(f);
         translatedFindings.push(translation);
       } catch (e) {
         console.error("Failed to translate finding", f, e);
