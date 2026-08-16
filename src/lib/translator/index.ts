@@ -49,7 +49,7 @@ Output: ${finding.raw_output}
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -68,11 +68,11 @@ Output: ${finding.raw_output}
       fix_prompt: parsed.fix_prompt || "No fix provided",
       status: "new"
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Translation error:", error);
     return {
       ...finding,
-      plain_explanation: "Failed to translate finding.",
+      plain_explanation: `Failed to translate finding. Error: ${error?.message || String(error)}`,
       risk_scenario: "Unknown risk due to translation failure.",
       urgency: "fix this week",
       fix_prompt: "Manually review this finding.",
