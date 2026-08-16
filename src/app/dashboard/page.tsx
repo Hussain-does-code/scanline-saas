@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { SignOut } from "@/components/auth-components"
 import { Finding } from "@/components/ui/finding-row"
 import { DashboardClient } from "./client"
+import { Heart } from "lucide-react"
 import { prisma } from "@/lib/db"
 
 export default async function DashboardPage() {
@@ -62,6 +63,15 @@ export default async function DashboardPage() {
           <div className="text-sm font-medium text-fog">indie-builder / saas-mvp</div>
         </div>
         <div className="flex items-center space-x-4 pr-24">
+          <a 
+            href="#" 
+            target="_blank" 
+            rel="noreferrer"
+            className="flex items-center space-x-2 text-sm font-medium text-scanline hover:text-white transition-colors bg-scanline/10 hover:bg-scanline/20 px-3 py-1.5 rounded-md border border-scanline/20"
+          >
+            <Heart className="w-4 h-4" />
+            <span>Support this project</span>
+          </a>
           {/* Rescan button is in client component */}
           <SignOut />
         </div>
