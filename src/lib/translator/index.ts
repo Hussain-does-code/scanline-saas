@@ -56,7 +56,7 @@ Output: ${finding.raw_output}
       }
     });
 
-    const parsed = JSON.parse(response.text() || "{}");
+    const parsed = JSON.parse(response.text || "{}");
     
     return {
       ...finding,

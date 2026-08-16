@@ -1,7 +1,7 @@
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || 'sk_test_mock', {
-  apiVersion: '2025-01-27.acacia' // Use a supported API version instead of just '2023-10-16'
+  apiVersion: '2026-07-29.dahlia' // Use a supported API version instead of just '2023-10-16'
 });
 
 export async function createCheckoutSession(userId: string) {
