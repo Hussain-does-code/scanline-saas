@@ -32,39 +32,19 @@ export default async function DashboardPage() {
   const dbFindings: Finding[] = rawDbFindings.map(f => ({
     id: f.id,
     category: f.category,
-    severity: f.severity as any,
+    severity: f.severity as Finding["severity"],
     file: f.file,
     line: f.line,
     plain_explanation: f.plainExplanation || "",
     risk_scenario: f.riskScenario || "",
     fix_prompt: f.fixPrompt || "",
-    status: f.status as any
+    raw_output: f.rawOutput || "",
+    repoName: f.scan.repo.name,
+    status: f.status as Finding["status"]
   }));
 
-  const displayFindings = dbFindings.length > 0 ? dbFindings : [
-    {
-      id: "f-1",
-      category: "Exposed API Key",
-      severity: "critical",
-      file: "src/lib/db.ts",
-      line: 12,
-      plain_explanation: "Found a live API key in your code.",
-      risk_scenario: "Anyone with your repo URL could use it right now to access your database.",
-      fix_prompt: "Move the hardcoded database URL to an environment variable.",
-      status: "new"
-    } as Finding,
-    {
-      id: "f-2",
-      category: "Missing Rate Limit",
-      severity: "medium",
-      file: "src/app/api/login/route.ts",
-      line: 8,
-      plain_explanation: "This login route allows unlimited requests.",
-      risk_scenario: "A stranger could write a script to guess passwords endlessly until they get in.",
-      fix_prompt: "Add a rate limit middleware to restrict requests to 5 per minute per IP.",
-      status: "persisting"
-    } as Finding
-  ];
+  // Removed mock data fallback; we now show Zero State in DashboardClient if dbFindings is empty
+  const displayFindings = dbFindings;
 
   return (
     <div className="min-h-screen flex flex-col relative">

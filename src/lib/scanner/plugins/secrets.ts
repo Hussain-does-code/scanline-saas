@@ -50,7 +50,7 @@ export const SecretsScanner: ScannerPlugin = {
             }
           }
         });
-      } catch (e) {
+      } catch (_e) {
         // Skip unreadable files
       }
     }

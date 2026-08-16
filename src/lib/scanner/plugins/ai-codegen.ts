@@ -54,7 +54,7 @@ export const AICodegenScanner: ScannerPlugin = {
              findings.push({ category: "Missing Rate Limit", severity: "medium", file: relPath, line: 1, raw_output: "No rate limit detected on auth route" });
           }
         }
-      } catch (e) {
+      } catch (_e) {
         // Skip
       }
     }

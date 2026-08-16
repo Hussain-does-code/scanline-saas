@@ -15,6 +15,8 @@ export interface Finding {
   plain_explanation: string;
   risk_scenario: string;
   fix_prompt: string;
+  raw_output?: string;
+  repoName?: string;
   status: "new" | "persisting" | "fixed" | "accepted";
 }
 
@@ -54,7 +56,8 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
           <span className={cn("font-medium text-fog", finding.status === "fixed" ? "line-through text-mist" : "")}>
             {finding.category}
           </span>
-          <span className="font-mono text-sm text-mist hidden md:inline-flex">
+          <span className="font-mono text-sm text-mist hidden md:inline-flex items-center">
+            {finding.repoName && <span className="text-fog/70 mr-2 px-2 py-0.5 bg-mist/10 rounded text-xs">{finding.repoName}</span>}
             {finding.file}:{finding.line}
           </span>
         </div>
@@ -74,6 +77,15 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
             className="border-t border-mist/10 bg-ink/30"
           >
             <div className="p-4 space-y-4">
+              {finding.raw_output && (
+                <div>
+                  <h4 className="text-sm font-semibold text-fog mb-1">Source Code Location</h4>
+                  <pre className="text-xs bg-ink/50 border border-mist/10 p-3 rounded-md overflow-x-auto text-scanline font-mono">
+                    {finding.raw_output}
+                  </pre>
+                </div>
+              )}
+              
               <div>
                 <h4 className="text-sm font-semibold text-fog mb-1">What this is</h4>
                 <p className="text-sm text-mist leading-relaxed">{finding.plain_explanation}</p>
