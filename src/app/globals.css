@@ -2,12 +2,12 @@
 
 :root {
   /* Dark Mode Default */
-  --bg-base: #0B0D12; /* ink */
-  --bg-panel: #131720; /* panel */
-  --text-primary: #B8BFCC; /* fog */
-  --text-secondary: #6B7280; /* mist */
+  --bg-base: #000000; /* Pure black */
+  --bg-panel: #09090B; /* Charcoal */
+  --text-primary: #E2E8F0; /* Brighter fog */
+  --text-secondary: #94A3B8; /* Brighter mist */
   
-  --color-scanline: #5EEAD4;
+  --color-scanline: #E67E22; /* Claude Orange */
   --color-clear: #34D399;
   --color-caution: #F5A623;
   --color-alert: #F0576B;
@@ -44,4 +44,18 @@ body {
 
 .light body {
   color-scheme: light;
+}
+
+@utility bg-halftone {
+  background-image: radial-gradient(rgba(230, 126, 34, 0.15) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+@utility shadow-comic {
+  box-shadow: 4px 4px 0px 0px var(--color-scanline);
+}
+
+@utility shadow-comic-hover {
+  box-shadow: 6px 6px 0px 0px var(--color-scanline);
+  transform: translate(-2px, -2px);
 }

@@ -41,7 +41,7 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
   return (
     <div 
       className={cn(
-        "group border border-mist/20 bg-panel rounded-lg overflow-hidden transition-all",
+        "group border-2 border-mist/20 bg-panel rounded overflow-hidden transition-all shadow-comic",
         finding.status === "fixed" ? "opacity-50" : "",
         className
       )}
@@ -99,7 +99,7 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
               <div className="flex items-center space-x-3 pt-2">
                 <Button 
                   size="sm" 
-                  className="bg-scanline text-ink hover:bg-scanline/90"
+                  className="bg-scanline text-ink hover:bg-scanline/90 font-bold shadow-comic hover:shadow-comic-hover transition-all duration-200"
                   onClick={(e) => {
                     e.stopPropagation();
                     navigator.clipboard.writeText(finding.fix_prompt);

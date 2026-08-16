@@ -61,8 +61,8 @@ export function DashboardClient({ initialFindings }: { initialFindings: Finding[
           
           {findings.length === 0 && !isScanning ? (
             <div className="flex flex-col items-center justify-center min-h-[50vh] text-center pt-12">
-              <div className="max-w-md space-y-6 bg-panel p-8 rounded-xl border border-mist/20 shadow-2xl relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-scanline/5 to-transparent pointer-events-none" />
+              <div className="max-w-md space-y-6 bg-panel p-8 rounded border-2 border-scanline shadow-comic relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-scanline/10 to-transparent pointer-events-none" />
                 <div className="w-16 h-16 bg-scanline/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-scanline/20">
                   <svg className="w-8 h-8 text-scanline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -72,7 +72,7 @@ export function DashboardClient({ initialFindings }: { initialFindings: Finding[
                 <p className="text-mist text-sm leading-relaxed relative z-10">
                   Scanline will securely analyze your most recent GitHub repository for AI-generated vulnerabilities.
                 </p>
-                <Button onClick={handleRescan} className="w-full bg-scanline text-ink hover:bg-scanline/90 font-medium h-12 relative z-10">
+                <Button onClick={handleRescan} className="w-full bg-scanline text-ink hover:bg-scanline/90 font-bold h-12 relative z-10 shadow-comic hover:shadow-comic-hover transition-all duration-200">
                   Start Scanning
                 </Button>
               </div>

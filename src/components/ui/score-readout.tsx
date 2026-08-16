@@ -18,9 +18,10 @@ export function ScoreReadout({ score, streak, className, ...props }: ScoreReadou
   const grade = getScoreGrade(score);
 
   return (
-    <div className={cn("flex flex-col items-center justify-center space-y-4", className)} {...props}>
-      <div className="flex items-start space-x-6">
-        <div className="flex flex-col border border-mist/20 bg-panel rounded-lg px-8 py-6 items-center shadow-lg">
+    <div className={cn("flex items-center space-x-8", className)} {...props}>
+      <div className="relative group">
+        <div className="absolute -inset-1 bg-gradient-to-r from-scanline/20 to-transparent rounded blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+        <div className="relative flex flex-col items-center justify-center p-8 bg-panel border-2 border-mist/20 rounded shadow-comic">
           <div className="text-mist text-sm font-medium uppercase tracking-wider mb-2 font-sans">Score</div>
           <div className="flex items-baseline space-x-2">
             <span className="font-mono text-6xl text-fog">{score}</span>
@@ -30,13 +31,13 @@ export function ScoreReadout({ score, streak, className, ...props }: ScoreReadou
             {grade}
           </div>
         </div>
-        {streak !== undefined && (
-          <div className="flex flex-col justify-center h-full">
-            <div className="text-sm text-mist mb-1 font-sans">streak</div>
-            <div className="text-lg font-mono text-clear">{streak} days</div>
-          </div>
-        )}
       </div>
+      {streak !== undefined && (
+        <div className="flex flex-col justify-center h-full">
+          <div className="text-sm text-mist mb-1 font-sans">streak</div>
+          <div className="text-lg font-mono text-clear">{streak} days</div>
+        </div>
+      )}
     </div>
   )
 }

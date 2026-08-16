@@ -10,7 +10,7 @@ export default async function LandingPage() {
   }
 
   return (
-    <main className="flex-1 flex flex-col items-center justify-center p-8 text-center min-h-screen">
+    <main className="flex-1 flex flex-col items-center justify-center p-8 text-center min-h-screen bg-halftone relative">
       <div className="max-w-3xl space-y-8">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-fog font-sans leading-tight">
           The scan that catches what <span className="text-scanline inline-block">vibe coding</span> leaves behind.
@@ -20,9 +20,9 @@ export default async function LandingPage() {
           Scanline continuously checks apps built with AI coding tools for the specific mistakes those tools tend to make, and explains every risk in plain English with a fix you can paste straight back into your coding agent.
         </p>
 
-        <div className="pt-8 flex flex-col items-center space-y-6">
+        <div className="pt-8 flex flex-col items-center space-y-6 relative z-10">
           <div className="flex flex-col items-center space-y-4">
-            <SignIn className="h-14 px-8 text-lg bg-fog text-ink hover:bg-fog/90 shadow-lg transition-transform hover:scale-105" />
+            <SignIn className="h-14 px-8 text-lg font-bold bg-scanline text-ink hover:bg-scanline/90 shadow-comic hover:shadow-comic-hover transition-all duration-200" />
             <p className="text-sm text-mist/60">
               Scanline can only read your code. It can never write to your repo.
             </p>
@@ -32,7 +32,7 @@ export default async function LandingPage() {
             href="https://sanitanoli.gumroad.com/l/qioky" 
             target="_blank" 
             rel="noreferrer"
-            className="inline-flex items-center space-x-2 text-sm font-medium text-scanline hover:text-white transition-colors bg-scanline/10 hover:bg-scanline/20 px-4 py-2 rounded-full border border-scanline/20"
+            className="inline-flex items-center space-x-2 text-sm font-bold text-scanline hover:text-ink transition-all bg-panel hover:bg-scanline px-5 py-2.5 rounded shadow-comic hover:shadow-comic-hover border border-scanline"
           >
             <Heart className="w-4 h-4" />
             <span>Support this project</span>
@@ -41,8 +41,8 @@ export default async function LandingPage() {
       </div>
       
       {/* Mock scan sweep animation for hero */}
-      <div className="w-full max-w-2xl mt-24 border border-mist/20 rounded-lg bg-panel p-6 shadow-2xl relative overflow-hidden text-left">
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-scanline shadow-[0_0_15px_3px_#5EEAD4] opacity-50 translate-y-12" />
+      <div className="w-full max-w-2xl mt-24 border-2 border-mist/20 rounded bg-panel p-6 shadow-comic relative overflow-hidden text-left z-10">
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-scanline shadow-[0_0_15px_3px_#E67E22] opacity-50 translate-y-12" />
         <div className="font-mono text-sm text-mist space-y-4">
           <div className="flex justify-between"><span className="text-fog">src/app/api/auth/route.ts</span><span className="text-caution">Missing rate limit</span></div>
           <div className="flex justify-between"><span className="text-fog">src/lib/db.ts</span><span className="text-alert">Exposed database key</span></div>
