@@ -47,7 +47,7 @@ Output: ${finding.raw_output}
       };
     }
 
-    const ai = new GoogleGenAI({});
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const response = await ai.models.generateContent({
       model: "gemini-2.5-pro",
       contents: prompt,
@@ -56,7 +56,9 @@ Output: ${finding.raw_output}
       }
     });
 
-    const parsed = JSON.parse(response.text || "{}");
+    const rawText = response.text || "{}";
+    const cleanText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
+    const parsed = JSON.parse(cleanText);
     
     return {
       ...finding,
