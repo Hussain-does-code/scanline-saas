@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { getValidGitHubToken, refreshGitHubToken } from "@/lib/github";
 import * as tar from "tar";
 import { tmpdir } from "os";
 import path from "path";
@@ -23,26 +24,54 @@ export async function POST(_req: Request) {
       where: { userId: session.user.id, provider: "github" }
     });
     
-    if (!account?.access_token) {
-      return new NextResponse(JSON.stringify({ error: "No GitHub token found. Please reconnect GitHub." }), { 
+    if (!account) {
+      return new NextResponse(JSON.stringify({ error: "No GitHub account connected. Please sign in with GitHub." }), { 
         status: 403,
         headers: { "Content-Type": "application/json" }
       });
     }
 
-    // 1. Fetch latest repo from GitHub
-    const reposRes = await fetch("https://api.github.com/user/repos?sort=updated&per_page=1&type=all", {
+    let accessToken = await getValidGitHubToken(session.user.id);
+    if (!accessToken) {
+      return new NextResponse(JSON.stringify({ error: "GitHub token expired. Please sign in again to refresh permissions." }), { 
+        status: 401,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // 1. Fetch latest repo from GitHub (with auto-retry on 401)
+    let reposRes = await fetch("https://api.github.com/user/repos?sort=updated&per_page=1&type=all", {
       headers: { 
-        Authorization: `Bearer ${account.access_token}`,
+        Authorization: `Bearer ${accessToken}`,
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "Scanline-App"
       }
     });
     
+    // If 401, attempt on-demand refresh and retry
+    if (reposRes.status === 401 && account.refresh_token) {
+      console.log("Got 401 from GitHub API, attempting on-demand token refresh...");
+      const refreshedToken = await refreshGitHubToken(account.id, account.refresh_token);
+      if (refreshedToken) {
+        accessToken = refreshedToken;
+        reposRes = await fetch("https://api.github.com/user/repos?sort=updated&per_page=1&type=all", {
+          headers: { 
+            Authorization: `Bearer ${accessToken}`,
+            Accept: "application/vnd.github.v3+json",
+            "User-Agent": "Scanline-App"
+          }
+        });
+      }
+    }
+
     if (!reposRes.ok) {
       const errText = await reposRes.text();
       console.error("GitHub repos fetch error:", reposRes.status, errText);
-      return new NextResponse(JSON.stringify({ error: `GitHub API error: ${reposRes.statusText}` }), { 
+      return new NextResponse(JSON.stringify({ 
+        error: reposRes.status === 401 
+          ? "GitHub session expired. Please sign out and sign in again to reconnect."
+          : `GitHub API error: ${reposRes.statusText}` 
+      }), { 
         status: reposRes.status,
         headers: { "Content-Type": "application/json" }
       });
@@ -62,7 +91,7 @@ export async function POST(_req: Request) {
     const tarballUrl = `https://api.github.com/repos/${targetRepo.full_name}/tarball/${defaultBranch}`;
     const tarRes = await fetch(tarballUrl, {
       headers: { 
-        Authorization: `Bearer ${account.access_token}`,
+        Authorization: `Bearer ${accessToken}`,
         Accept: "application/vnd.github.v3+json",
         "User-Agent": "Scanline-App"
       }

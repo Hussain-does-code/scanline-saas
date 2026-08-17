@@ -19,6 +19,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider === "github" && user?.id) {
+        try {
+          await prisma.account.updateMany({
+            where: { userId: user.id, provider: "github" },
+            data: {
+              access_token: account.access_token,
+              refresh_token: account.refresh_token,
+              expires_at: account.expires_at,
+              scope: account.scope,
+            }
+          });
+        } catch (e) {
+          console.error("Error updating account token on signIn:", e);
+        }
+      }
+      return true;
+    },
     jwt({ token, user, account }) {
       if (user) {
         token.id = user.id
