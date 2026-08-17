@@ -46,6 +46,25 @@ body {
   color-scheme: light;
 }
 
+@keyframes scan-beam-sweep {
+  0% {
+    top: 0%;
+    opacity: 0.8;
+  }
+  50% {
+    top: 100%;
+    opacity: 1;
+  }
+  100% {
+    top: 0%;
+    opacity: 0.8;
+  }
+}
+
+.animate-scan-beam {
+  animation: scan-beam-sweep 2.2s ease-in-out infinite;
+}
+
 @utility bg-halftone {
   background-image: radial-gradient(rgba(230, 126, 34, 0.15) 1px, transparent 1px);
   background-size: 16px 16px;
