@@ -72,7 +72,7 @@ export default async function DashboardPage() {
             href="https://sanitanoli.gumroad.com/l/qioky" 
             target="_blank" 
             rel="noreferrer"
-            className="flex items-center space-x-2 text-sm font-medium text-white transition-colors bg-black hover:bg-zinc-900 px-3 py-1.5 rounded border-2 border-black shadow-comic hover:shadow-comic-hover font-serif"
+            className="flex items-center space-x-2 text-sm font-medium text-white transition-colors bg-black hover:bg-zinc-900 px-3 py-1.5 rounded border-2 border-black shadow-comic-white hover:shadow-comic-white-hover font-serif"
           >
             <Heart className="w-4 h-4 text-rose-400" />
             <span>Support this project</span>

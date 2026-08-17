@@ -68,3 +68,12 @@ body {
   box-shadow: 6px 6px 0px 0px #000000;
   transform: translate(-2px, -2px);
 }
+
+@utility shadow-comic-white {
+  box-shadow: 4px 4px 0px 0px #FFFFFF;
+}
+
+@utility shadow-comic-white-hover {
+  box-shadow: 6px 6px 0px 0px #FFFFFF;
+  transform: translate(-2px, -2px);
+}

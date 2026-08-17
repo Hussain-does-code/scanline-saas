@@ -99,7 +99,7 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
               <div className="flex items-center space-x-3 pt-2">
                 <Button 
                   size="sm" 
-                  className="bg-black text-white hover:bg-zinc-900 font-bold border-2 border-black shadow-comic hover:shadow-comic-hover transition-all duration-200 font-serif"
+                  className="bg-black text-white hover:bg-zinc-900 font-bold border-2 border-black shadow-comic-white hover:shadow-comic-white-hover transition-all duration-200 font-serif"
                   onClick={(e) => {
                     e.stopPropagation();
                     navigator.clipboard.writeText(finding.fix_prompt);

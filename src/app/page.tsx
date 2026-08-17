@@ -23,7 +23,7 @@ export default async function LandingPage() {
 
         <div className="pt-6 flex flex-col items-center space-y-6 relative z-10">
           <div className="flex flex-col items-center space-y-4">
-            <SignIn className="h-14 px-8 text-lg font-bold bg-black text-white hover:bg-zinc-900 border-2 border-black shadow-comic hover:shadow-comic-hover transition-all duration-200 cursor-pointer font-serif" />
+            <SignIn className="h-14 px-8 text-lg font-bold bg-black text-white hover:bg-zinc-900 border-2 border-black shadow-comic-white hover:shadow-comic-white-hover transition-all duration-200 cursor-pointer font-serif" />
             <p className="text-sm text-zinc-950/70 font-serif">
               Scanline can only read your code. It can never write to your repo.
             </p>
@@ -33,7 +33,7 @@ export default async function LandingPage() {
             href="https://sanitanoli.gumroad.com/l/qioky" 
             target="_blank" 
             rel="noreferrer"
-            className="inline-flex items-center space-x-2 text-sm font-bold text-white transition-all bg-black hover:bg-zinc-900 px-5 py-2.5 rounded border-2 border-black shadow-comic hover:shadow-comic-hover font-serif"
+            className="inline-flex items-center space-x-2 text-sm font-bold text-white transition-all bg-black hover:bg-zinc-900 px-5 py-2.5 rounded border-2 border-black shadow-comic-white hover:shadow-comic-white-hover font-serif"
           >
             <Heart className="w-4 h-4 text-rose-400" />
             <span>Support this project</span>
@@ -41,7 +41,7 @@ export default async function LandingPage() {
         </div>
       </div>
       
-      {/* Clean Minimal Preview Box with Solid, Sharp Colors */}
+      {/* Clean Minimal Preview Box */}
       <div className="w-full max-w-2xl mt-16 border-2 border-black rounded-lg bg-panel p-6 shadow-comic text-left z-10 font-mono text-sm space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-fog">src/app/api/auth/route.ts</span>

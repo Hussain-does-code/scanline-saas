@@ -101,7 +101,7 @@ export function DashboardClient({
                 <p className="text-mist text-sm leading-relaxed font-serif">
                   Scanline will securely analyze your most recent GitHub repository for AI-generated vulnerabilities.
                 </p>
-                <Button onClick={handleRescan} className="w-full bg-black text-white hover:bg-zinc-900 font-bold h-12 font-serif border-2 border-black shadow-comic hover:shadow-comic-hover transition-all duration-200">
+                <Button onClick={handleRescan} className="w-full bg-black text-white hover:bg-zinc-900 font-bold h-12 font-serif border-2 border-black shadow-comic-white hover:shadow-comic-white-hover transition-all duration-200">
                   Start Scanning
                 </Button>
               </div>
