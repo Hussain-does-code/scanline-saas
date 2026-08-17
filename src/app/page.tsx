@@ -41,19 +41,19 @@ export default async function LandingPage() {
         </div>
       </div>
       
-      {/* Clean Minimal Preview Box */}
+      {/* Clean Minimal Preview Box with Solid, Sharp Colors */}
       <div className="w-full max-w-2xl mt-16 border-2 border-black rounded-lg bg-panel p-6 shadow-comic text-left z-10 font-mono text-sm space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-fog">src/app/api/auth/route.ts</span>
-          <span className="text-amber-400 font-medium">Missing rate limit</span>
+          <span className="text-[#FBBF24] font-medium">Missing rate limit</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-fog">src/lib/db.ts</span>
-          <span className="text-rose-400 font-medium">Exposed database key</span>
+          <span className="text-[#F87171] font-medium">Exposed database key</span>
         </div>
-        <div className="flex justify-between items-center opacity-60">
+        <div className="flex justify-between items-center">
           <span className="text-fog">package.json</span>
-          <span className="text-emerald-400 font-medium">Dependencies clean</span>
+          <span className="text-[#34D399] font-medium">Dependencies clean</span>
         </div>
       </div>
     </main>
