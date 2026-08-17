@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { SignIn } from "@/components/auth-components"
-import { Heart, ShieldCheck, AlertCircle, AlertTriangle, CheckCircle2 } from "lucide-react"
+import { Heart } from "lucide-react"
 
 export default async function LandingPage() {
   const session = await auth()
@@ -41,56 +41,19 @@ export default async function LandingPage() {
         </div>
       </div>
       
-      {/* Sleek, Professional Code Scan Preview */}
-      <div className="w-full max-w-2xl mt-16 border-2 border-mist/20 rounded-lg bg-panel shadow-comic overflow-hidden text-left z-10">
-        {/* Terminal Header Bar */}
-        <div className="flex items-center justify-between px-4 py-2.5 bg-ink/70 border-b border-mist/10">
-          <div className="flex items-center space-x-2">
-            <div className="w-2.5 h-2.5 rounded-full bg-rose-500/70" />
-            <div className="w-2.5 h-2.5 rounded-full bg-amber-500/70" />
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/70" />
-            <span className="text-xs font-mono text-mist/70 pl-2">scanline audit --latest</span>
-          </div>
-          <div className="flex items-center space-x-1.5 text-xs font-mono text-mist/60">
-            <ShieldCheck className="w-3.5 h-3.5 text-scanline" />
-            <span>Automated Analysis</span>
-          </div>
+      {/* Clean Minimal Preview Box */}
+      <div className="w-full max-w-2xl mt-16 border-2 border-mist/20 rounded bg-panel p-6 shadow-comic text-left z-10 font-mono text-sm space-y-4">
+        <div className="flex justify-between items-center">
+          <span className="text-fog">src/app/api/auth/route.ts</span>
+          <span className="text-amber-500 font-medium">Missing rate limit</span>
         </div>
-
-        {/* Scan Rows with Solid Professional Color Badges */}
-        <div className="p-4 divide-y divide-mist/10 font-mono text-sm">
-          <div className="flex items-center justify-between py-3">
-            <div className="flex items-center space-x-3 text-fog">
-              <span className="text-mist/50 text-xs">01</span>
-              <span>src/app/api/auth/route.ts</span>
-            </div>
-            <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded text-xs font-medium bg-amber-500/10 text-amber-400 border border-amber-500/20">
-              <AlertTriangle className="w-3 h-3 text-amber-400" />
-              <span>Missing Rate Limit</span>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between py-3">
-            <div className="flex items-center space-x-3 text-fog">
-              <span className="text-mist/50 text-xs">02</span>
-              <span>src/lib/db.ts</span>
-            </div>
-            <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20">
-              <AlertCircle className="w-3 h-3 text-rose-400" />
-              <span>Exposed Database Key</span>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between py-3 text-mist/70">
-            <div className="flex items-center space-x-3">
-              <span className="text-mist/40 text-xs">03</span>
-              <span>package.json</span>
-            </div>
-            <div className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-              <span>Dependencies Clean</span>
-            </div>
-          </div>
+        <div className="flex justify-between items-center">
+          <span className="text-fog">src/lib/db.ts</span>
+          <span className="text-rose-500 font-medium">Exposed database key</span>
+        </div>
+        <div className="flex justify-between items-center opacity-60">
+          <span className="text-fog">package.json</span>
+          <span className="text-emerald-500 font-medium">Dependencies clean</span>
         </div>
       </div>
     </main>
