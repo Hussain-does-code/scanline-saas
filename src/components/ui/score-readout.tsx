@@ -19,23 +19,22 @@ export function ScoreReadout({ score, streak, className, ...props }: ScoreReadou
 
   return (
     <div className={cn("flex items-center space-x-8", className)} {...props}>
-      <div className="relative group">
-        <div className="absolute -inset-1 bg-gradient-to-r from-scanline/20 to-transparent rounded blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-        <div className="relative flex flex-col items-center justify-center p-8 bg-panel border-2 border-mist/20 rounded shadow-comic">
-          <div className="text-mist text-sm font-medium uppercase tracking-wider mb-2 font-sans">Score</div>
+      <div className="relative">
+        <div className="relative flex flex-col items-center justify-center p-8 bg-panel border-2 border-black rounded-lg shadow-comic">
+          <div className="text-mist text-xs font-mono uppercase tracking-widest mb-2">Overall Score</div>
           <div className="flex items-baseline space-x-2">
-            <span className="font-mono text-6xl text-fog">{score}</span>
-            <span className="font-mono text-4xl text-mist/50">/ 100</span>
+            <span className="font-mono text-6xl text-fog font-bold">{score}</span>
+            <span className="font-mono text-3xl text-mist/50">/ 100</span>
           </div>
-          <div className="mt-4 flex h-10 w-10 items-center justify-center rounded-full bg-mist/10 text-xl font-bold text-scanline font-sans">
+          <div className="mt-4 flex h-10 w-10 items-center justify-center rounded-full bg-black text-white text-xl font-bold font-serif border border-zinc-700">
             {grade}
           </div>
         </div>
       </div>
       {streak !== undefined && (
         <div className="flex flex-col justify-center h-full">
-          <div className="text-sm text-mist mb-1 font-sans">streak</div>
-          <div className="text-lg font-mono text-clear">{streak} days</div>
+          <div className="text-sm text-zinc-950/80 mb-1 font-serif">Security streak</div>
+          <div className="text-xl font-mono font-bold text-zinc-950">{streak} days</div>
         </div>
       )}
     </div>

@@ -1,24 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  /* Dark Mode Default */
-  --bg-base: #000000; /* Pure black */
-  --bg-panel: #09090B; /* Charcoal */
-  --text-primary: #E2E8F0; /* Brighter fog */
-  --text-secondary: #94A3B8; /* Brighter mist */
+  /* Requested Theme: Background #D36A4A, Accents/Scanline Black */
+  --bg-base: #D36A4A; /* Terracotta Orange Background */
+  --bg-panel: #140E0C; /* Deep Black/Charcoal Panels */
+  --text-primary: #FDFBF7; /* Crisp Ivory Text for panels */
+  --text-secondary: #D4C3BC; /* Soft Warm Gray */
   
-  --color-scanline: #E67E22; /* Claude Orange */
-  --color-clear: #34D399;
-  --color-caution: #F5A623;
-  --color-alert: #F0576B;
+  --color-scanline: #000000; /* Solid Black Accents */
+  --color-clear: #10B981;
+  --color-caution: #F59E0B;
+  --color-alert: #F43F5E;
 }
 
 .light {
-  /* Light Mode Inverted */
-  --bg-base: #F4F6FA;
-  --bg-panel: #FFFFFF;
-  --text-primary: #374151;
-  --text-secondary: #6B7280;
+  --bg-base: #D36A4A;
+  --bg-panel: #FAF8F5;
+  --text-primary: #111111;
+  --text-secondary: #4A3B36;
 }
 
 @theme {
@@ -31,25 +30,21 @@
   --color-caution: var(--color-caution);
   --color-alert: var(--color-alert);
 
-  --font-sans: var(--font-ibm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-lora), 'Lora', Georgia, Cambria, serif;
+  --font-sans: var(--font-lora), 'Lora', Georgia, Cambria, serif;
   --font-mono: var(--font-ibm-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 body {
   background-color: var(--color-ink);
   color: var(--color-fog);
-  font-family: var(--font-sans);
-  color-scheme: dark;
-}
-
-.light body {
-  color-scheme: light;
+  font-family: var(--font-serif);
 }
 
 @keyframes scan-beam-sweep {
   0% {
     top: 0%;
-    opacity: 0.8;
+    opacity: 0.9;
   }
   50% {
     top: 100%;
@@ -57,7 +52,7 @@ body {
   }
   100% {
     top: 0%;
-    opacity: 0.8;
+    opacity: 0.9;
   }
 }
 
@@ -66,15 +61,15 @@ body {
 }
 
 @utility bg-halftone {
-  background-image: radial-gradient(rgba(230, 126, 34, 0.15) 1px, transparent 1px);
-  background-size: 16px 16px;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
 }
 
 @utility shadow-comic {
-  box-shadow: 4px 4px 0px 0px var(--color-scanline);
+  box-shadow: 4px 4px 0px 0px #000000;
 }
 
 @utility shadow-comic-hover {
-  box-shadow: 6px 6px 0px 0px var(--color-scanline);
+  box-shadow: 6px 6px 0px 0px #000000;
   transform: translate(-2px, -2px);
 }

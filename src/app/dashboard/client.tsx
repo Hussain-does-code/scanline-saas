@@ -73,17 +73,17 @@ export function DashboardClient({
       <ScanSweep isScanning={isScanning}>
         <main className="flex-1 p-6 md:p-12 max-w-5xl mx-auto w-full space-y-8">
           {isScanning && (
-            <div className="flex items-center justify-center p-4 bg-panel/90 border border-scanline/40 rounded shadow-comic">
-              <div className="text-scanline font-mono text-sm animate-pulse">
+            <div className="flex items-center justify-center p-4 bg-panel border-2 border-black rounded shadow-comic">
+              <div className="text-fog font-mono text-sm animate-pulse">
                 Cloning latest repository... Analyzing security vulnerabilities... Generating plain English fixes...
               </div>
             </div>
           )}
 
           {errorMessage && (
-            <div className="p-4 bg-alert/10 border border-alert/30 rounded text-alert text-sm flex items-center justify-between">
+            <div className="p-4 bg-panel border-2 border-black shadow-comic rounded text-rose-400 text-sm flex items-center justify-between font-serif">
               <span>{errorMessage}</span>
-              <Button variant="ghost" size="sm" onClick={() => setErrorMessage(null)} className="text-alert hover:text-white">
+              <Button variant="ghost" size="sm" onClick={() => setErrorMessage(null)} className="text-rose-400 hover:text-white">
                 Dismiss
               </Button>
             </div>
@@ -91,18 +91,17 @@ export function DashboardClient({
           
           {findings.length === 0 && !isScanning ? (
             <div className="flex flex-col items-center justify-center min-h-[50vh] text-center pt-12">
-              <div className="max-w-md space-y-6 bg-panel p-8 rounded border-2 border-scanline shadow-comic relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-scanline/10 to-transparent pointer-events-none" />
-                <div className="w-16 h-16 bg-scanline/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-scanline/20">
-                  <svg className="w-8 h-8 text-scanline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="max-w-md space-y-6 bg-panel p-8 rounded-lg border-2 border-black shadow-comic relative overflow-hidden">
+                <div className="w-16 h-16 bg-black/40 rounded-full flex items-center justify-center mx-auto mb-4 border border-zinc-700">
+                  <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
-                <h2 className="text-2xl font-bold text-fog relative z-10">Ready for your first scan?</h2>
-                <p className="text-mist text-sm leading-relaxed relative z-10">
+                <h2 className="text-2xl font-bold text-fog font-serif">Ready for your first scan?</h2>
+                <p className="text-mist text-sm leading-relaxed font-serif">
                   Scanline will securely analyze your most recent GitHub repository for AI-generated vulnerabilities.
                 </p>
-                <Button onClick={handleRescan} className="w-full bg-scanline text-ink hover:bg-scanline/90 font-bold h-12 relative z-10 shadow-comic hover:shadow-comic-hover transition-all duration-200">
+                <Button onClick={handleRescan} className="w-full bg-black text-white hover:bg-zinc-900 font-bold h-12 font-serif border-2 border-black shadow-comic hover:shadow-comic-hover transition-all duration-200">
                   Start Scanning
                 </Button>
               </div>
@@ -115,9 +114,9 @@ export function DashboardClient({
               
               <section className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-medium text-fog">Findings ({openFindingsCount} open)</h2>
+                  <h2 className="text-2xl font-bold text-zinc-950 font-serif">Findings ({openFindingsCount} open)</h2>
                   {findings.length > 0 && (
-                    <span className="text-xs text-mist font-mono">
+                    <span className="text-xs text-zinc-950/80 font-mono font-medium">
                       {findings.length} total findings recorded
                     </span>
                   )}

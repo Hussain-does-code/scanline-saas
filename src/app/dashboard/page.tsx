@@ -55,15 +55,15 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col relative">
-      <header className="border-b border-mist/10 bg-panel px-6 py-4 flex items-center justify-between relative z-10">
+    <div className="min-h-screen flex flex-col relative bg-ink">
+      <header className="border-b-2 border-black bg-panel px-6 py-4 flex items-center justify-between relative z-10 shadow-sm">
         <div className="flex items-center space-x-4">
-          <div className="font-sans font-bold text-lg text-scanline tracking-tight">Scanline</div>
+          <div className="font-serif font-bold text-xl text-white tracking-tight">Scanline</div>
           <div className="h-4 w-px bg-mist/20" />
           {session.user?.image && (
-            <img src={session.user.image} alt="Avatar" className="w-6 h-6 rounded-full border border-mist/20" />
+            <img src={session.user.image} alt="Avatar" className="w-6 h-6 rounded-full border border-mist/30" />
           )}
-          <div className="text-sm font-medium text-fog">
+          <div className="text-sm font-medium text-fog font-serif">
             {session.user?.name || session.user?.email || 'Hacker'} / workspace
           </div>
         </div>
@@ -72,9 +72,9 @@ export default async function DashboardPage() {
             href="https://sanitanoli.gumroad.com/l/qioky" 
             target="_blank" 
             rel="noreferrer"
-            className="flex items-center space-x-2 text-sm font-medium text-scanline hover:text-white transition-colors bg-scanline/10 hover:bg-scanline/20 px-3 py-1.5 rounded-md border border-scanline/20"
+            className="flex items-center space-x-2 text-sm font-medium text-white transition-colors bg-black hover:bg-zinc-900 px-3 py-1.5 rounded border-2 border-black shadow-comic hover:shadow-comic-hover font-serif"
           >
-            <Heart className="w-4 h-4" />
+            <Heart className="w-4 h-4 text-rose-400" />
             <span>Support this project</span>
           </a>
           <SignOut />

@@ -41,30 +41,30 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
   return (
     <div 
       className={cn(
-        "group border-2 border-mist/20 bg-panel rounded overflow-hidden transition-all shadow-comic",
+        "group border-2 border-black bg-panel rounded-lg overflow-hidden transition-all shadow-comic",
         finding.status === "fixed" ? "opacity-50" : "",
         className
       )}
       {...props}
     >
       <div 
-        className="flex items-center justify-between p-4 cursor-pointer hover:bg-mist/5"
+        className="flex items-center justify-between p-4 cursor-pointer hover:bg-white/5"
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex items-center space-x-4">
           {getSeverityBadge(finding.severity)}
-          <span className={cn("font-medium text-fog", finding.status === "fixed" ? "line-through text-mist" : "")}>
+          <span className={cn("font-serif font-semibold text-fog text-base", finding.status === "fixed" ? "line-through text-mist" : "")}>
             {finding.category}
           </span>
-          <span className="font-mono text-sm text-mist hidden md:inline-flex items-center">
-            {finding.repoName && <span className="text-fog/70 mr-2 px-2 py-0.5 bg-mist/10 rounded text-xs">{finding.repoName}</span>}
+          <span className="font-mono text-xs text-mist hidden md:inline-flex items-center">
+            {finding.repoName && <span className="text-fog/80 mr-2 px-2 py-0.5 bg-black/60 border border-zinc-700 rounded text-xs">{finding.repoName}</span>}
             {finding.file}:{finding.line}
           </span>
         </div>
         <div className="flex items-center space-x-4 text-mist">
-          {finding.status === "new" && <Badge variant="outline" className="text-scanline border-scanline/30 bg-scanline/5">New</Badge>}
+          {finding.status === "new" && <Badge variant="outline" className="text-zinc-200 border-zinc-600 bg-zinc-800/80">New</Badge>}
           {finding.status === "fixed" && <Badge variant="success">Fixed</Badge>}
-          <ChevronDown className={cn("h-4 w-4 transition-transform", expanded ? "rotate-180" : "")} />
+          <ChevronDown className={cn("h-4 w-4 transition-transform text-mist", expanded ? "rotate-180" : "")} />
         </div>
       </div>
       
@@ -74,13 +74,13 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="border-t border-mist/10 bg-ink/30"
+            className="border-t-2 border-black bg-black/40"
           >
-            <div className="p-4 space-y-4">
+            <div className="p-5 space-y-4 font-serif">
               {finding.raw_output && (
                 <div>
-                  <h4 className="text-sm font-semibold text-fog mb-1">Source Code Location</h4>
-                  <pre className="text-xs bg-ink/50 border border-mist/10 p-3 rounded-md overflow-x-auto text-scanline font-mono">
+                  <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-mist mb-1.5">Source Code Location</h4>
+                  <pre className="text-xs bg-black border border-zinc-700 p-3 rounded overflow-x-auto text-zinc-200 font-mono">
                     {finding.raw_output}
                   </pre>
                 </div>
@@ -99,7 +99,7 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
               <div className="flex items-center space-x-3 pt-2">
                 <Button 
                   size="sm" 
-                  className="bg-scanline text-ink hover:bg-scanline/90 font-bold shadow-comic hover:shadow-comic-hover transition-all duration-200"
+                  className="bg-black text-white hover:bg-zinc-900 font-bold border-2 border-black shadow-comic hover:shadow-comic-hover transition-all duration-200 font-serif"
                   onClick={(e) => {
                     e.stopPropagation();
                     navigator.clipboard.writeText(finding.fix_prompt);
@@ -114,7 +114,7 @@ export function FindingRow({ finding, onCopyFix, onAcceptRisk, className, ...pro
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-mist hover:text-fog"
+                    className="text-mist hover:text-fog font-serif"
                     onClick={(e) => {
                       e.stopPropagation();
                       onAcceptRisk?.(finding.id);

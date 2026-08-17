@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Lora, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const ibmSans = IBM_Plex_Sans({
-  variable: "--font-ibm-sans",
+const lora = Lora({
+  variable: "--font-lora",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 const ibmMono = IBM_Plex_Mono({
@@ -25,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${ibmSans.variable} ${ibmMono.variable} antialiased h-full`}>
-      <body className="min-h-full flex flex-col font-sans bg-ink text-fog">
+    <html lang="en" className={`${lora.variable} ${ibmMono.variable} antialiased h-full`}>
+      <body className="min-h-full flex flex-col font-serif bg-ink text-fog">
         {children}
       </body>
     </html>
