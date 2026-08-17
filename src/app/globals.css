@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Requested Theme: Background #D36A4A, Accents/Scanline Black */
+  /* Requested Theme: Solid Plain Background #D36A4A, Accents/Scanline Black */
   --bg-base: #D36A4A; /* Terracotta Orange Background */
   --bg-panel: #140E0C; /* Deep Black/Charcoal Panels */
   --text-primary: #FDFBF7; /* Crisp Ivory Text for panels */
@@ -58,11 +58,6 @@ body {
 
 .animate-scan-beam {
   animation: scan-beam-sweep 2.2s ease-in-out infinite;
-}
-
-@utility bg-halftone {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1.2px, transparent 1.2px);
-  background-size: 18px 18px;
 }
 
 @utility shadow-comic {

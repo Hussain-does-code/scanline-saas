@@ -11,7 +11,7 @@ export default async function LandingPage() {
   }
 
   return (
-    <main className="flex-1 flex flex-col items-center justify-center p-6 md:p-12 text-center min-h-screen bg-halftone relative">
+    <main className="flex-1 flex flex-col items-center justify-center p-6 md:p-12 text-center min-h-screen bg-ink relative">
       <div className="max-w-3xl space-y-8">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-zinc-950 font-serif leading-tight">
           The scan that catches what <span className="text-white italic underline decoration-zinc-950 decoration-2 inline-block">vibe coding</span> leaves behind.
@@ -41,7 +41,7 @@ export default async function LandingPage() {
         </div>
       </div>
       
-      {/* Clean Minimal Preview Box with Black Borders & Shadows */}
+      {/* Clean Minimal Preview Box */}
       <div className="w-full max-w-2xl mt-16 border-2 border-black rounded-lg bg-panel p-6 shadow-comic text-left z-10 font-mono text-sm space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-fog">src/app/api/auth/route.ts</span>
