@@ -5,43 +5,62 @@ import { ScoreReadout } from "@/components/ui/score-readout";
 import { FindingRow, Finding } from "@/components/ui/finding-row";
 import { Button } from "@/components/ui/button";
 
-export function DashboardClient({ initialFindings }: { initialFindings: Finding[] }) {
+export function DashboardClient({ 
+  initialFindings,
+  initialScore
+}: { 
+  initialFindings: Finding[];
+  initialScore?: number;
+}) {
   const [isScanning, setIsScanning] = React.useState(false);
   const [findings, setFindings] = React.useState<Finding[]>(initialFindings);
-  const [score, setScore] = React.useState(0);
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (isScanning) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setScore(0); // Reset score while scanning
-    } else {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setScore(94); // Mock final score
-    }
-  }, [isScanning]);
+  const calculateScore = React.useCallback((items: Finding[]) => {
+    const openCount = items.filter(f => f.status !== 'fixed' && f.status !== 'accepted').length;
+    return Math.max(0, 100 - openCount * 5);
+  }, []);
+
+  const [score, setScore] = React.useState<number>(
+    initialScore !== undefined ? initialScore : calculateScore(initialFindings)
+  );
 
   const handleRescan = async () => {
     setIsScanning(true);
+    setErrorMessage(null);
     try {
       const response = await fetch("/api/scan", { method: "POST" });
-      if (response.ok) {
-        const result = await response.json();
-        if (result.findings) {
-          setFindings(result.findings);
+      const data = await response.json().catch(() => ({}));
+      
+      if (!response.ok) {
+        setErrorMessage(data?.error || "Failed to complete scan. Please try again.");
+      } else if (data.findings) {
+        setFindings(data.findings);
+        if (data.score !== undefined) {
+          setScore(data.score);
+        } else {
+          setScore(calculateScore(data.findings));
         }
       }
-    } catch (e) {
-      console.error(e);
+    } catch (e: any) {
+      console.error("Scan trigger error:", e);
+      setErrorMessage(e?.message || "An unexpected error occurred during scanning.");
+    } finally {
+      setIsScanning(false);
     }
   };
 
   const handleCopyFix = (_id: string, _prompt: string) => {
-    // In a real app, track copied state or analytics
+    // Analytics/telemetry hook
   };
 
   const handleAcceptRisk = (id: string) => {
-    setFindings(findings.map(f => f.id === id ? { ...f, status: "accepted" } : f));
+    const updated = findings.map(f => f.id === id ? { ...f, status: "accepted" as const } : f);
+    setFindings(updated);
+    setScore(calculateScore(updated));
   };
+
+  const openFindingsCount = findings.filter(f => f.status !== 'fixed' && f.status !== 'accepted').length;
 
   return (
     <>
@@ -51,11 +70,22 @@ export function DashboardClient({ initialFindings }: { initialFindings: Finding[
         </Button>
       </div>
       
-      <ScanSweep isScanning={isScanning} onComplete={() => setIsScanning(false)}>
-        <main className="flex-1 p-6 md:p-12 max-w-5xl mx-auto w-full space-y-12">
+      <ScanSweep isScanning={isScanning}>
+        <main className="flex-1 p-6 md:p-12 max-w-5xl mx-auto w-full space-y-8">
           {isScanning && (
-            <div className="absolute top-8 left-1/2 -translate-x-1/2 text-scanline font-mono text-sm animate-pulse z-50">
-              Cloning repository... Analyzing code...
+            <div className="flex items-center justify-center p-4 bg-panel/90 border border-scanline/40 rounded shadow-comic">
+              <div className="text-scanline font-mono text-sm animate-pulse">
+                Cloning latest repository... Analyzing security vulnerabilities... Generating plain English fixes...
+              </div>
+            </div>
+          )}
+
+          {errorMessage && (
+            <div className="p-4 bg-alert/10 border border-alert/30 rounded text-alert text-sm flex items-center justify-between">
+              <span>{errorMessage}</span>
+              <Button variant="ghost" size="sm" onClick={() => setErrorMessage(null)} className="text-alert hover:text-white">
+                Dismiss
+              </Button>
             </div>
           )}
           
@@ -79,15 +109,20 @@ export function DashboardClient({ initialFindings }: { initialFindings: Finding[
             </div>
           ) : (
             <>
-              <div className="pt-8">
-                <ScoreReadout score={score} streak={12} className="py-8 transition-all duration-1000" />
+              <div className="pt-4">
+                <ScoreReadout score={score} streak={12} className="py-4 transition-all duration-500" />
               </div>
               
               <section className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-medium text-fog">Findings ({findings.filter(f => f.status !== 'fixed' && f.status !== 'accepted').length} open)</h2>
+                  <h2 className="text-xl font-medium text-fog">Findings ({openFindingsCount} open)</h2>
+                  {findings.length > 0 && (
+                    <span className="text-xs text-mist font-mono">
+                      {findings.length} total findings recorded
+                    </span>
+                  )}
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {findings.map(finding => (
                     <FindingRow 
                       key={finding.id} 

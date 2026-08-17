@@ -8,10 +8,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   providers: [
     GitHub({
-      clientId: process.env.AUTH_GITHUB_ID,
-      clientSecret: process.env.AUTH_GITHUB_SECRET,
+      clientId: process.env.AUTH_GITHUB_ID || process.env.GITHUB_ID,
+      clientSecret: process.env.AUTH_GITHUB_SECRET || process.env.GITHUB_SECRET,
       authorization: {
         params: {
+          scope: "read:user user:email repo",
           prompt: "consent",
         },
       },

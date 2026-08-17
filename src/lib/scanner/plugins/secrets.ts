@@ -12,7 +12,7 @@ async function walk(dir: string, fileList: string[] = []): Promise<string[]> {
   const files = await fs.readdir(dir);
   for (const file of files) {
     const filePath = path.join(dir, file);
-    if (file === "node_modules" || file === ".git" || file === ".next") continue;
+    if (file === "node_modules" || file === ".git" || file === ".next" || file === "dist" || file === "build") continue;
     const stat = await fs.stat(filePath);
     if (stat.isDirectory()) {
       fileList = await walk(filePath, fileList);
@@ -31,6 +31,12 @@ export const SecretsScanner: ScannerPlugin = {
     
     for (const file of files) {
       if (!file.match(/\.(ts|js|tsx|jsx|json|env|md)$/)) continue;
+      const relPath = path.relative(dirPath, file).replace(/\\/g, '/');
+
+      // Skip scanner definitions
+      if (relPath.includes("lib/scanner/") || relPath.includes("plugins/secrets")) {
+        continue;
+      }
       
       try {
         const content = await fs.readFile(file, "utf8");
@@ -43,9 +49,9 @@ export const SecretsScanner: ScannerPlugin = {
               findings.push({
                 category: pattern.name,
                 severity: pattern.severity,
-                file: path.relative(dirPath, file).replace(/\\/g, '/'),
+                file: relPath,
                 line: index + 1,
-                raw_output: `Matched pattern ${pattern.name}`,
+                raw_output: lineStr.trim() || `Matched pattern ${pattern.name}`,
               });
             }
           }

@@ -13,13 +13,15 @@ export default async function DashboardPage() {
     redirect("/")
   }
 
-  // Query real database for user's findings
+  // Query real database for user's latest repo scan findings
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
     include: {
       repos: {
         include: {
           scans: {
+            orderBy: { startedAt: "desc" },
+            take: 1,
             include: { findings: true }
           }
         }
@@ -28,9 +30,13 @@ export default async function DashboardPage() {
   });
 
   const dbFindings: Finding[] = [];
+  let latestScore = 100;
+
   user?.repos.forEach(repo => {
-    repo.scans.forEach(scan => {
-      scan.findings.forEach(f => {
+    const latestScan = repo.scans[0];
+    if (latestScan) {
+      latestScore = latestScan.score;
+      latestScan.findings.forEach(f => {
         dbFindings.push({
           id: f.id,
           category: f.category,
@@ -45,11 +51,8 @@ export default async function DashboardPage() {
           status: f.status as Finding["status"]
         });
       });
-    });
+    }
   });
-
-  // Removed mock data fallback; we now show Zero State in DashboardClient if dbFindings is empty
-  const displayFindings = dbFindings;
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -74,12 +77,11 @@ export default async function DashboardPage() {
             <Heart className="w-4 h-4" />
             <span>Support this project</span>
           </a>
-          {/* Rescan button is in client component */}
           <SignOut />
         </div>
       </header>
 
-      <DashboardClient initialFindings={displayFindings} />
+      <DashboardClient initialFindings={dbFindings} initialScore={latestScore} />
     </div>
   )
 }
